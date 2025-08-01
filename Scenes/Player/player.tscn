@@ -1,0 +1,231 @@
+[gd_scene load_steps=29 format=3 uid="uid://ck63ndi7jfoch"]
+
+[ext_resource type="Script" uid="uid://bir7rq1vhhys3" path="res://Scenes/Player/player.gd" id="1_jlvik"]
+[ext_resource type="Texture2D" uid="uid://3nv1dwap2rl7" path="res://Assets/Effects/Explosion (16 x 16).png" id="2_0u5uq"]
+[ext_resource type="Texture2D" uid="uid://edatwhcq2vak" path="res://Assets/Player ship/Player_ship (16 x 16).png" id="2_dd0ac"]
+[ext_resource type="PackedScene" uid="uid://b54ahxpy1jgmq" path="res://Scenes/Player/Projectiles/projectile.tscn" id="2_jhyir"]
+[ext_resource type="Texture2D" uid="uid://big0vn1oio0wl" path="res://Assets/Player ship/Boosters (16 x 16).png" id="4_gk6dx"]
+[ext_resource type="Script" uid="uid://3m2taufxiyhj" path="res://Scenes/Player/StateMachine/state_machine.gd" id="4_jlvik"]
+[ext_resource type="Script" uid="uid://c3a4m1wsuhr4j" path="res://Scenes/Player/StateMachine/States/idle.gd" id="5_gk6dx"]
+[ext_resource type="Texture2D" uid="uid://hx11auakniiy" path="res://Assets/Player ship/Boosters_left (16 x 16).png" id="5_jhyir"]
+[ext_resource type="Script" uid="uid://c3gaye6iv0g4s" path="res://Scenes/Player/StateMachine/States/move.gd" id="6_0u5uq"]
+[ext_resource type="Script" uid="uid://b50maq230r4w4" path="res://Scenes/Player/StateMachine/States/dead.gd" id="7_jlvik"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gk6dx"]
+atlas = ExtResource("2_0u5uq")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhyir"]
+atlas = ExtResource("2_0u5uq")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74mp2"]
+atlas = ExtResource("2_0u5uq")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oikmp"]
+atlas = ExtResource("2_0u5uq")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06tpx"]
+atlas = ExtResource("2_0u5uq")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7g0yx"]
+atlas = ExtResource("2_0u5uq")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u5uq"]
+atlas = ExtResource("2_dd0ac")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlvik"]
+atlas = ExtResource("2_dd0ac")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3wgy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gk6dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhyir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74mp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oikmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06tpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7g0yx")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u5uq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlvik")
+}],
+"loop": false,
+"name": &"move",
+"speed": 2.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dey5f"]
+atlas = ExtResource("4_gk6dx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5xpd"]
+atlas = ExtResource("4_gk6dx")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ks1b7"]
+atlas = ExtResource("5_jhyir")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnuln"]
+atlas = ExtResource("5_jhyir")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aqm4k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dey5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5xpd")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ks1b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnuln")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gk6dx"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_gk6dx"]
+resource_name = "shoot"
+length = 0.25
+step = 0.005
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.165, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 0.5), Vector2(0.5, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jhyir"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_74mp2"]
+_data = {
+&"RESET": SubResource("Animation_jhyir"),
+&"shoot": SubResource("Animation_gk6dx")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("projectile_spawn_pos", "cooldown_timer", "spaceship_sprite", "booster_sprite", "animation_player", "collision", "state_machine")]
+collision_layer = 2
+collision_mask = 20
+motion_mode = 1
+script = ExtResource("1_jlvik")
+projectile = ExtResource("2_jhyir")
+projectile_spawn_pos = NodePath("Projectile_Spawn")
+cooldown_timer = NodePath("Cooldown")
+acceleration = 0.05
+max_speed = 200.0
+friction = 0.2
+spaceship_sprite = NodePath("Sprites/Spaceship")
+booster_sprite = NodePath("Sprites/Boosters")
+animation_player = NodePath("AnimationPlayer")
+collision = NodePath("CollisionShape2D")
+state_machine = NodePath("StateMachine")
+hp = 3
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Spaceship" type="AnimatedSprite2D" parent="Sprites"]
+sprite_frames = SubResource("SpriteFrames_x3wgy")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Boosters" type="AnimatedSprite2D" parent="Sprites"]
+position = Vector2(0, 15)
+sprite_frames = SubResource("SpriteFrames_aqm4k")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.900494
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_jlvik")
+initial_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_gk6dx")
+
+[node name="move" type="Node" parent="StateMachine"]
+script = ExtResource("6_0u5uq")
+
+[node name="death" type="Node" parent="StateMachine"]
+script = ExtResource("7_jlvik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gk6dx")
+
+[node name="Projectile_Spawn" type="Marker2D" parent="."]
+position = Vector2(0, -7)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_74mp2")
+}
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="died" from="." to="." method="_on_died"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

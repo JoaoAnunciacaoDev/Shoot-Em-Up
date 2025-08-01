@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://du75v2ch6t1s1"]
+
+[ext_resource type="PackedScene" uid="uid://pkpxb5htp0i5" path="res://Scenes/Background/BackGround.tscn" id="1_qxfds"]
+[ext_resource type="PackedScene" uid="uid://ck63ndi7jfoch" path="res://Scenes/Player/player.tscn" id="2_qikps"]
+[ext_resource type="Script" uid="uid://bjsl0fy1wr35y" path="res://Scenes/Game/enemy_spawner.gd" id="3_qikps"]
+[ext_resource type="PackedScene" uid="uid://bkyb6ngymjqpy" path="res://Scenes/Enemies/enemy.tscn" id="4_i1e5p"]
+
+[node name="Game" type="Node2D"]
+
+[node name="BackGround" parent="." instance=ExtResource("1_qxfds")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("projectiles_container") instance=ExtResource("2_qikps")]
+position = Vector2(240, 238)
+projectiles_container = NodePath("../ProjectilesContainer")
+friction = 0.05
+
+[node name="ProjectilesContainer" type="Node2D" parent="."]
+
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("enemies_container", "spawn_timer")]
+script = ExtResource("3_qikps")
+enemies = Array[PackedScene]([ExtResource("4_i1e5p")])
+enemies_container = NodePath("../EnemiesContainer")
+spawn_timer = NodePath("../SpawnTimer")
+
+[node name="EnemiesContainer" type="Node2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]

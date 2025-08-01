@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://do8dy45b53s2q"]
+
+[ext_resource type="Script" uid="uid://bomevdhmantc3" path="res://Scenes/Player/player_info.gd" id="1_es3u5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6t5e5"]
+font_color = Color(0, 0, 0, 1)
+outline_size = 6
+shadow_size = 8
+shadow_color = Color(0.341176, 0, 0, 0.737255)
+
+[node name="Player_Info" type="CanvasLayer"]
+script = ExtResource("1_es3u5")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(16, 25)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 25.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HBoxContainer"]
+custom_minimum_size = Vector2(16, 25)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/HBoxContainer"]
+layout_mode = 2
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_6t5e5")
