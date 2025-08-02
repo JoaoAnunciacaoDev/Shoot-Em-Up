@@ -10,7 +10,7 @@ func handle_input(event : InputEvent) -> State:
 
 func physics_update(_delta: float) -> State:
 	var input_dir : Vector2 = Input.get_vector("left", "right", "up", "down")
-	player.move(input_dir)	
+	player.move(input_dir)
 	player.flip_sprite(input_dir)
 	
 	if Input.is_action_pressed("shoot"):
