@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://djkp15w176tn4"]
+
+[ext_resource type="Script" uid="uid://mlyjlywajryl" path="res://Scenes/Game/game_over_screen.gd" id="1_butpw"]
+[ext_resource type="PackedScene" uid="uid://bnbus6w5jg6yl" path="res://Scenes/MainMenu/loading_screen.tscn" id="2_drvi6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j6jjy"]
+font_size = 24
+font_color = Color(1, 0.164706, 0.192157, 1)
+outline_size = 4
+outline_color = Color(0.937173, 9.55395e-05, 0.336227, 0.94902)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.94902)
+shadow_offset = Vector2(2, 2)
+
+[node name="GameOverScreen" type="CanvasLayer" node_paths=PackedStringArray("bg", "vbox", "score_label")]
+script = ExtResource("1_butpw")
+loading_scene = ExtResource("2_drvi6")
+bg = NodePath("bg")
+vbox = NodePath("CenterContainer/VBoxContainer")
+score_label = NodePath("CenterContainer/VBoxContainer/Score_label")
+
+[node name="bg" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="GameOver_label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Over"
+label_settings = SubResource("LabelSettings_j6jjy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="try_again_btn" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="main_menu_btn" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="Score_label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_j6jjy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/try_again_btn" to="." method="_on_try_again_btn_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/main_menu_btn" to="." method="_on_main_menu_btn_pressed"]

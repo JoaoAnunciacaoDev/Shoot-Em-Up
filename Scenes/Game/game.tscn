@@ -1,31 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://du75v2ch6t1s1"]
+[gd_scene load_steps=10 format=3 uid="uid://du75v2ch6t1s1"]
 
 [ext_resource type="PackedScene" uid="uid://pkpxb5htp0i5" path="res://Scenes/Background/BackGround.tscn" id="1_qxfds"]
+[ext_resource type="Script" uid="uid://2okfxtbee287" path="res://Scenes/Game/game.gd" id="1_vifcx"]
+[ext_resource type="PackedScene" uid="uid://do8dy45b53s2q" path="res://Scenes/Player/player_info.tscn" id="2_ciybh"]
 [ext_resource type="PackedScene" uid="uid://ck63ndi7jfoch" path="res://Scenes/Player/player.tscn" id="2_qikps"]
+[ext_resource type="Script" uid="uid://cv3in6nuo0pjk" path="res://Scenes/Game/camera.gd" id="3_flgk0"]
 [ext_resource type="Script" uid="uid://bjsl0fy1wr35y" path="res://Scenes/Game/enemy_spawner.gd" id="3_qikps"]
-[ext_resource type="PackedScene" uid="uid://bkyb6ngymjqpy" path="res://Scenes/Enemies/enemy.tscn" id="4_i1e5p"]
+[ext_resource type="PackedScene" uid="uid://bkyb6ngymjqpy" path="res://Scenes/Enemies/floating_enemy.tscn" id="4_i1e5p"]
+[ext_resource type="PackedScene" uid="uid://djkp15w176tn4" path="res://Scenes/Game/game_over_screen.tscn" id="5_xfil1"]
+[ext_resource type="PackedScene" uid="uid://8xt4ekk0lewp" path="res://Scenes/Enemies/shooter_enemy.tscn" id="9_huoen"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("camera", "game_over_screen")]
+script = ExtResource("1_vifcx")
+camera = NodePath("Camera2D")
+game_over_screen = NodePath("GameOverScreen")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(136, 240)
+script = ExtResource("3_flgk0")
 
 [node name="BackGround" parent="." instance=ExtResource("1_qxfds")]
 
+[node name="Player_Info" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_ciybh")]
+player = NodePath("../Player")
+
+[node name="GameOverScreen" parent="." node_paths=PackedStringArray("player_info") instance=ExtResource("5_xfil1")]
+player_info = NodePath("../Player_Info")
+
 [node name="Player" parent="." node_paths=PackedStringArray("projectiles_container") instance=ExtResource("2_qikps")]
-position = Vector2(240, 238)
+position = Vector2(135, 460)
 projectiles_container = NodePath("../ProjectilesContainer")
 friction = 0.05
 
 [node name="ProjectilesContainer" type="Node2D" parent="."]
 
-[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("enemies_container", "spawn_timer")]
-script = ExtResource("3_qikps")
-enemies = Array[PackedScene]([ExtResource("4_i1e5p")])
-enemies_container = NodePath("../EnemiesContainer")
-spawn_timer = NodePath("../SpawnTimer")
-
 [node name="EnemiesContainer" type="Node2D" parent="."]
+
+[node name="EnemySpawner" type="Node2D" parent="." node_paths=PackedStringArray("enemies_container", "projectiles_container", "spawn_timer", "player_info")]
+script = ExtResource("3_qikps")
+enemies = Array[PackedScene]([ExtResource("4_i1e5p"), ExtResource("9_huoen")])
+enemies_container = NodePath("../EnemiesContainer")
+projectiles_container = NodePath("../ProjectilesContainer")
+spawn_timer = NodePath("../SpawnTimer")
+player_info = NodePath("../Player_Info")
+times = Array[float]([1.0, 1.25, 1.5, 2.0, 2.5])
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.5
-one_shot = true
+autostart = true
 
+[connection signal="died" from="Player" to="." method="_on_player_died"]
+[connection signal="taken_damage" from="Player" to="." method="_on_player_taken_damage"]
+[connection signal="taken_damage" from="Player" to="Player_Info" method="minus_hp"]
 [connection signal="timeout" from="SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]

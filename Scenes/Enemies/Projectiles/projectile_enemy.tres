@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://cq7jepc0b2i73"]
+
+[ext_resource type="Texture2D" uid="uid://dqvy37kwxvckh" path="res://Assets/Projectiles/Enemy_projectile (16 x 16).png" id="1_crli7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deqb5"]
+atlas = ExtResource("1_crli7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3dif"]
+atlas = ExtResource("1_crli7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn0rb"]
+atlas = ExtResource("1_crli7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fgu7"]
+atlas = ExtResource("1_crli7")
+region = Rect2(48, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_deqb5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3dif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fn0rb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fgu7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]

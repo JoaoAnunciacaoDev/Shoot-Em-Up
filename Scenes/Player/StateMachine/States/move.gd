@@ -13,6 +13,9 @@ func physics_update(_delta: float) -> State:
 	player.move(input_dir)	
 	player.flip_sprite(input_dir)
 	
+	if Input.is_action_pressed("shoot"):
+		player.shoot()
+	
 	if input_dir.x != 0:
 		player.spaceship_sprite.play("move")
 		player.booster_sprite.play("idle")

@@ -9,9 +9,6 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
-func handle_input(_event : InputEvent) -> State:
-	return null
-
 func update(_delta : float) -> State:
 	return null
 

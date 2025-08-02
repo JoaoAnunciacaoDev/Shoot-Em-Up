@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://do8dy45b53s2q"]
+[gd_scene load_steps=4 format=3 uid="uid://do8dy45b53s2q"]
 
 [ext_resource type="Script" uid="uid://bomevdhmantc3" path="res://Scenes/Player/player_info.gd" id="1_es3u5"]
+[ext_resource type="Texture2D" uid="uid://wvg52wnpac5w" path="res://Assets/UI objects/Player_life_icon (16 x 16).png" id="2_6t5e5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_6t5e5"]
 font_color = Color(0, 0, 0, 1)
@@ -8,8 +9,11 @@ outline_size = 6
 shadow_size = 8
 shadow_color = Color(0.341176, 0, 0, 0.737255)
 
-[node name="Player_Info" type="CanvasLayer"]
+[node name="Player_Info" type="CanvasLayer" node_paths=PackedStringArray("container_icon", "label")]
 script = ExtResource("1_es3u5")
+player_icon = ExtResource("2_6t5e5")
+container_icon = NodePath("UI/HBoxContainer/HBoxContainer")
+label = NodePath("UI/HBoxContainer/Label")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -30,9 +34,14 @@ grow_horizontal = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/HBoxContainer"]
 custom_minimum_size = Vector2(16, 25)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
+
+[node name="Spacer" type="Control" parent="UI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="UI/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_6t5e5")

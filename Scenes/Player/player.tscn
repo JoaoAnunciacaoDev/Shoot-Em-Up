@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ck63ndi7jfoch"]
+[gd_scene load_steps=32 format=3 uid="uid://ck63ndi7jfoch"]
 
 [ext_resource type="Script" uid="uid://bir7rq1vhhys3" path="res://Scenes/Player/player.gd" id="1_jlvik"]
 [ext_resource type="Texture2D" uid="uid://3nv1dwap2rl7" path="res://Assets/Effects/Explosion (16 x 16).png" id="2_0u5uq"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://c3a4m1wsuhr4j" path="res://Scenes/Player/StateMachine/States/idle.gd" id="5_gk6dx"]
 [ext_resource type="Texture2D" uid="uid://hx11auakniiy" path="res://Assets/Player ship/Boosters_left (16 x 16).png" id="5_jhyir"]
 [ext_resource type="Script" uid="uid://c3gaye6iv0g4s" path="res://Scenes/Player/StateMachine/States/move.gd" id="6_0u5uq"]
-[ext_resource type="Script" uid="uid://b50maq230r4w4" path="res://Scenes/Player/StateMachine/States/dead.gd" id="7_jlvik"]
+[ext_resource type="Script" uid="uid://b50maq230r4w4" path="res://Scenes/Player/StateMachine/States/death.gd" id="7_jlvik"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gk6dx"]
 atlas = ExtResource("2_0u5uq")
@@ -127,9 +127,50 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gk6dx"]
-radius = 7.0
+radius = 9.0
+
+[sub_resource type="Animation" id="Animation_jhyir"]
+resource_local_to_scene = true
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_gk6dx"]
+resource_local_to_scene = true
 resource_name = "shoot"
 length = 0.25
 step = 0.005
@@ -146,41 +187,90 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.5, 0.5), Vector2(0.5, 1.5), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_jhyir"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_74mp2"]
 _data = {
 &"RESET": SubResource("Animation_jhyir"),
 &"shoot": SubResource("Animation_gk6dx")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("projectile_spawn_pos", "cooldown_timer", "spaceship_sprite", "booster_sprite", "animation_player", "collision", "state_machine")]
+[sub_resource type="Animation" id="Animation_oikmp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_74mp2"]
+resource_local_to_scene = true
+resource_name = "taken_damage"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.752426, 1, 1.25, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06tpx"]
+_data = {
+&"RESET": SubResource("Animation_oikmp"),
+&"taken_damage": SubResource("Animation_74mp2")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("projectile_spawn_pos", "cooldown_timer", "spaceship_sprite", "booster_sprite", "animation_player", "damage_animation", "collision", "state_machine") groups=["Player"]]
 collision_layer = 2
 collision_mask = 20
 motion_mode = 1
 script = ExtResource("1_jlvik")
 projectile = ExtResource("2_jhyir")
-projectile_spawn_pos = NodePath("Projectile_Spawn")
+projectile_spawn_pos = NodePath("SpawnPos")
 cooldown_timer = NodePath("Cooldown")
 acceleration = 0.05
 max_speed = 200.0
 friction = 0.2
 spaceship_sprite = NodePath("Sprites/Spaceship")
 booster_sprite = NodePath("Sprites/Boosters")
-animation_player = NodePath("AnimationPlayer")
+animation_player = NodePath("Animations_Player/AnimationPlayer")
+damage_animation = NodePath("Animations_Player/DamageAnimation")
 collision = NodePath("CollisionShape2D")
 state_machine = NodePath("StateMachine")
 hp = 3
@@ -199,6 +289,12 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.900494
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gk6dx")
+
+[node name="SpawnPos" type="Marker2D" parent="."]
+position = Vector2(0, -7)
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_jlvik")
 initial_state = NodePath("idle")
@@ -212,19 +308,21 @@ script = ExtResource("6_0u5uq")
 [node name="death" type="Node" parent="StateMachine"]
 script = ExtResource("7_jlvik")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gk6dx")
+[node name="Animations_Player" type="Node" parent="."]
 
-[node name="Projectile_Spawn" type="Marker2D" parent="."]
-position = Vector2(0, -7)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations_Player"]
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_74mp2")
 }
 
+[node name="DamageAnimation" type="AnimationPlayer" parent="Animations_Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_06tpx")
+}
+
 [node name="Cooldown" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.3
 one_shot = true
 
 [connection signal="died" from="." to="." method="_on_died"]

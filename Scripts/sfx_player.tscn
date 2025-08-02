@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdls0mo5q8at6"]
+
+[ext_resource type="Script" uid="uid://h5emrijce1p4" path="res://Scripts/sfx_player.gd" id="1_qta0d"]
+[ext_resource type="AudioStream" uid="uid://b86wqfk64h2ms" path="res://Sounds/explosion.wav" id="2_duc11"]
+[ext_resource type="AudioStream" uid="uid://mdq13w0b4qj3" path="res://Sounds/beep.mp3" id="3_w81o2"]
+[ext_resource type="AudioStream" uid="uid://bkg4l034mdvgq" path="res://Sounds/damaged.wav" id="4_w81o2"]
+
+[node name="SFX_Player" type="Node"]
+script = ExtResource("1_qta0d")
+sounds = Dictionary[String, AudioStream]({
+"damaged": ExtResource("4_w81o2"),
+"explosion": ExtResource("2_duc11"),
+"shoot": ExtResource("3_w81o2")
+})

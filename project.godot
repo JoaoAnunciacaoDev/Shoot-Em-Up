@@ -10,15 +10,27 @@ config_version=5
 
 [application]
 
-config/name="ShootMUp"
+config/name="Navinha"
+run/main_scene="uid://bnbus6w5jg6yl"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://wvg52wnpac5w"
+
+[autoload]
+
+SfxPlayer="*res://Scripts/sfx_player.tscn"
+PlaylistManager="*res://Scenes/PlaylistManager/playlist_manager.tscn"
+Global="*res://Scripts/Global.gd"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
+window/size/viewport_width=270
+window/size/viewport_height=480
 window/stretch/mode="viewport"
+window/hdr_2d=false
+
+[global_group]
+
+Player=""
 
 [input]
 
@@ -64,5 +76,5 @@ shoot={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
+renderer/rendering_method.web="mobile"

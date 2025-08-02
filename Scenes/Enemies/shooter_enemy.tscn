@@ -1,0 +1,217 @@
+[gd_scene load_steps=27 format=3 uid="uid://8xt4ekk0lewp"]
+
+[ext_resource type="Script" uid="uid://b3dhrnob0xitv" path="res://Scenes/Enemies/shooter_enemy.gd" id="1_0uxgp"]
+[ext_resource type="Texture2D" uid="uid://3nv1dwap2rl7" path="res://Assets/Effects/Explosion (16 x 16).png" id="2_1vadd"]
+[ext_resource type="PackedScene" uid="uid://cx5e357w77x2j" path="res://Scenes/Enemies/Projectiles/projectile_enemy.tscn" id="2_30lxa"]
+[ext_resource type="Texture2D" uid="uid://dtumhqccb2rfk" path="res://Assets/Enemies/Lips (16 x 16).png" id="3_30lxa"]
+[ext_resource type="Texture2D" uid="uid://dqvy37kwxvckh" path="res://Assets/Projectiles/Enemy_projectile (16 x 16).png" id="3_p04fw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deqb5"]
+atlas = ExtResource("3_p04fw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3dif"]
+atlas = ExtResource("3_p04fw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fn0rb"]
+atlas = ExtResource("3_p04fw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fgu7"]
+atlas = ExtResource("3_p04fw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ty7h2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_deqb5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3dif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fn0rb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1fgu7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x1rqp"]
+radius = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0emo"]
+atlas = ExtResource("2_1vadd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tq087"]
+atlas = ExtResource("2_1vadd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bcle"]
+atlas = ExtResource("2_1vadd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_beuat"]
+atlas = ExtResource("2_1vadd")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ubbs"]
+atlas = ExtResource("2_1vadd")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycxl0"]
+atlas = ExtResource("2_1vadd")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypy2k"]
+atlas = ExtResource("3_30lxa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrqgi"]
+atlas = ExtResource("3_30lxa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gdaw"]
+atlas = ExtResource("3_30lxa")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt0vm"]
+atlas = ExtResource("3_30lxa")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwsdi"]
+atlas = ExtResource("3_30lxa")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u0emo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0emo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tq087")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bcle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_beuat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ubbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycxl0")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypy2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrqgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gdaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt0vm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwsdi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_ubio8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x1rqp"]
+resource_name = "taken_damage"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.118581, 0.118581, 0.118581, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_miwey"]
+_data = {
+&"RESET": SubResource("Animation_ubio8"),
+&"taken_damage": SubResource("Animation_x1rqp")
+}
+
+[node name="ShooterEnemy" type="Area2D" node_paths=PackedStringArray("cooldown_timer", "spawn_point", "hurtbox", "animation_player", "sprite")]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_0uxgp")
+projectile = ExtResource("2_30lxa")
+sprite_frames = SubResource("SpriteFrames_ty7h2")
+cooldown_timer = NodePath("Cooldown")
+spawn_point = NodePath("Marker2D")
+hp = 4
+speed = 80.0
+damage = 1
+direction = Vector2(0, 1)
+hurtbox = NodePath(".")
+animation_player = NodePath("AnimationPlayer")
+sprite = NodePath("Sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x1rqp")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_u0emo")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.00240691
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_miwey")
+}
+
+[node name="Cooldown" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

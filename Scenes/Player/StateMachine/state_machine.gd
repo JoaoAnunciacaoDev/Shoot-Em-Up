@@ -17,10 +17,6 @@ func _ready() -> void:
 		current_state = initial_state
 		current_state.enter()
 
-func _on_input(event: InputEvent) -> void:
-	var new_state = current_state.handle_input(event)
-	if new_state: transition_to(new_state)
-
 func _process(delta: float) -> void:
 	var new_state = current_state.update(delta)
 	if new_state: transition_to(new_state)
