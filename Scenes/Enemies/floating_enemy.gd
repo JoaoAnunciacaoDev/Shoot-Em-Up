@@ -1,4 +1,5 @@
 extends EnemyBase
+class_name FloatingEnemy
 
 @export var frequency : float
 @export var amplitude : float

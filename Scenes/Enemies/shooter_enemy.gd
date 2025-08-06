@@ -1,4 +1,5 @@
 extends EnemyBase
+class_name ShooterEnemy
 
 @export var projectile : PackedScene
 @export var sprite_frames : SpriteFrames
